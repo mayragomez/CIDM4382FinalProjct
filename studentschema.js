@@ -13,15 +13,18 @@ var studentsSchema = new Schema({
     firstname: { type: String, index: 1, required: true },
     // the last name field
     lastname: { type: String, index: 1, required: true },
+    // phone
+    phone: {type: String, index: 1, required: false},
     // the email field
-    email: { type: String, index: 1, required: true},
-    // the hometown field
-    hometown: { type: String, index: 1, required: true },
+    email: { type: String, index: 1, required: false},
     // the classification field
-    classification: { type: String, index: 1, required: true },
-    // the major field
-    major: { type: String, index: 1, required: true }
-    // 
+    classification: { type: String, index: 1, required: true }, // HS, JC, Freshman, Sophmore, Junior, Senior, Graduate
+    //status
+    status: { type: String, index: 1, required: true }, // Prospect, Current, Alumni
+    //portfolio repository
+    portfolio: {type: String, index: 1, required: false},
+    //linkedin link
+    linkedin: {type: String, index: 1, required: false}
 }, 
 //use the 'students' collection to apply this schema to
 {

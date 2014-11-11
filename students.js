@@ -13,7 +13,8 @@ console.log("\nAssignment 6 Menu");
 console.log("Choose any of the jobs below.");
 console.log("***Warning: you must run job #1 at least once before the others.***");
 console.log("-------------------------------------------------------------------------");
-console.log("Job #1: Create database, create collection, and add all students to it.");
+console.log("Job #1: Clear collection")
+console.log("Job #2: Create database, create collection, and add all students to it.");
 
 r1.question("Please enter the number of the job you would like to run: ", function(answer) 
 {
@@ -21,6 +22,12 @@ r1.question("Please enter the number of the job you would like to run: ", functi
     {
         case 1:
             console.log("\nYou selected job #1");
+            console.log();
+            DeleteCollection();
+            break;
+            
+        case 2:
+            console.log("\nYou selected job #2");
             console.log();
             CreateDatabaseAndCollection();
             break;
@@ -59,9 +66,11 @@ function CreateDatabaseAndCollection()
             firstname: "Jason",
             lastname: "Madison",
             email: "jmadison@gmail.com",
-            hometown: "Richardson",
             classification: "Senior",
-            major: "CIS"
+            major: "CIS",
+            portfolio: "@github.com",
+            linkedin:"",
+            status: "Current"
         });
 
         var student002 = new Students(
@@ -71,9 +80,10 @@ function CreateDatabaseAndCollection()
             firstname: "Secia",
             lastname: "Chase",
             email: "schase@gmail.com",
-            hometown: "Dallas",
-            classification: "Freshman",
-            major: "CIS"
+            classification: "Senior",
+            portfolio: "@github.com",
+            linkedin:"",
+            status: "Alumni"
         });
 
         var student003 = new Students(
@@ -83,9 +93,11 @@ function CreateDatabaseAndCollection()
             firstname: "Lauren",
             lastname: "Alvarez",
             email: "lalvarez@gmail.com",
-            hometown: "Amarillo",
-            classification: "Senior",
-            major: "CIS"
+            classification: "Freshman",
+            portfolio: "@github.com",
+            linkedin:"",
+            status: "Prospect"
+            
         });
 
         var student004 = new Students(
@@ -95,9 +107,10 @@ function CreateDatabaseAndCollection()
             firstname: "Anthony",
             lastname: "Petruccione",
             email: "anthony@gmail.com",
-            hometown: "Canyon",
-            classification: "Senior",
-            major: "CIS"
+            classification: "Freshman",
+            portfolio: "@github.com",
+            linkedin:"",
+            status:"Prospect"
         });
 
         var student005 = new Students(
@@ -107,9 +120,10 @@ function CreateDatabaseAndCollection()
             firstname: "Mayra",
             lastname: "Gomez",
             email: "mgomez@gmail.com",
-            hometown: "Canyon",
             classification: "Senior",
-            major: "CIS"
+            portfolio: "@github.com",
+            linkedin:"",
+            status: "Current"
         });
 
  Students.create([student001, student002, student003, student004, student005,], function(err, records) 
@@ -121,14 +135,14 @@ function CreateDatabaseAndCollection()
                 for (var i in docs) 
                 {
                     console.log(docs[i].fullName());
+                    
                 } // end for loop
             }); // end query.exec
         }); // end Student.create
     }); // end mongoose.connection
 } // end CreateDatabaseAndCollectionFunction
 
-
-function BlankFunction() 
+function DeleteCollection() 
 {
     var dbName = "studentsdb";
 
@@ -136,20 +150,35 @@ function BlankFunction()
     var studentsdb = mongoose.connect(connString + dbName);
 
     //get the schema - notice how we use the export
-    var studentsSchema = require('./students_schema.js').studentsSchema;
-
+    var studentsSchema = require('./studentschema.js').studentsSchema;
     var Students = mongoose.model('Students', studentsSchema);
-
     setTimeout(function() 
     {
         mongoose.disconnect();
     }, 5000);
-
-    //again, once is the event-handling "hook" for when the database is opened
     mongoose.connection.once('open', function() 
     {
-        
-        // this is were all the stuff goes
-        
+        Students.find({}, function(err, docs) 
+        {
+            console.log("Before delete: ");
+            for (var i in docs) 
+            {
+                console.log(docs[i].fullName());
+            }
+            var query = Students.remove();
+            query.exec(function(err, results) 
+            {
+                console.log("\n%d Documents Deleted.", results);
+                Students.find({}, function(err, docs) 
+                {
+                    console.log("\nAfter delete: ");
+                    for (var i in docs) 
+                    {
+                        console.log(docs[i].fullName());
+                    }
+                    mongoose.disconnect();
+                }); // end Students.find
+            }); // end query.exec
+        }); // end Students.find
     }); // end mongoose.connection
-} // end BlankFunction function
+} // end DeleteCollection function

@@ -93,8 +93,8 @@ function CreateDatabaseAndCollection()
         {
             username: "jafar4",
             password: "password04",
-            firstname: "jafar",
-            lastname: "ozarka",
+            firstname: "Jafar",
+            lastname: "Ozarka",
             email: "jafar@gmail.com",
         });
 
