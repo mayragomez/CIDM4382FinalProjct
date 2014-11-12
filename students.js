@@ -80,7 +80,7 @@ function CreateDatabaseAndCollection()
             firstname: "Secia",
             lastname: "Chase",
             email: "schase@gmail.com",
-            classification: "Senior",
+            classification: "N/A",
             portfolio: "@github.com",
             linkedin:"",
             status: "Alumni"
@@ -93,7 +93,7 @@ function CreateDatabaseAndCollection()
             firstname: "Lauren",
             lastname: "Alvarez",
             email: "lalvarez@gmail.com",
-            classification: "Freshman",
+            classification: "JC",
             portfolio: "@github.com",
             linkedin:"",
             status: "Prospect"
@@ -107,7 +107,7 @@ function CreateDatabaseAndCollection()
             firstname: "Anthony",
             lastname: "Petruccione",
             email: "anthony@gmail.com",
-            classification: "Freshman",
+            classification: "HS",
             portfolio: "@github.com",
             linkedin:"",
             status:"Prospect"
